@@ -1,36 +1,69 @@
-import config
+from time import time
 import fileinput
 import re
 
-"""
-Takes a sentence and iterates over the characters to find 
-if there are any characters that are not in the whitelist.
-"""
-def check_character(sentence):
+# Packed config of variables used in the program
+config = {
+	"MAX_WORDS": 14,
+	"OUTPUT_FILE": f"{int(time() * 1000)}-output.txt",
+	"WHITELISTED_CHARACTERS": list("абвгдѓежзѕијклљмнњопрстќуфхцчџшАБВГДЃЕЖЗЅИЈКЛЉМНЊОПРСТЌУФХЦЧЏШ.?!(),: "),
+	"SPLIT_INTO_SENTENCES": "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s",
+	"COMMON_MISTAKES": {
+		"Сеуште": "Сѐ уште",
+		"сеуште": "сѐ уште",
+		"Незнам": "Не знам",
+		"незнам": "не знам",
+		"Одприлика": "Отприлика",
+		"одприлика": "отприлика",
+		"Сметат": "Сметаат",
+		"сметат": "сметаат",
+	}
+}
+
+def check_character(sentence) -> bool:
+	""" Given a sentence, returns True if it finds an invalid character,
+	False otherwise
+
+	Parameters:
+		sentence (str): A sentence
+
+	Returns:
+		True (bool): If there is a not white-listed character in the sentence
+		False (bool): If all characters are valid and white-listed   
+	"""
 	for character in sentence:
-		if character not in config.WHITELISTED_CHARACTERS:
+		if character not in config["WHITELISTED_CHARACTERS"]:
 			return True
 	return False
 
-"""
-Takes in a sentence and replaces words that are part of the 
-common_mistakes dictionary.
-"""
-def fix_common_mistakes(sentence):
-    for word in sentence.split(" "):
-        if word in config.COMMON_MISTAKES:
-            sentence = sentence.replace(word, config.COMMON_MISTAKES[word])
-        else:
-            pass
 
-    return sentence
+def fix_common_mistakes(sentence) -> str:
+	""" Loops through the words of a given sentence and replaces all words that 
+	are part of the config['COMMON_MISTAKES'].
 
-"""
-Takes a list of sentences and for each sentences
-checks if it passes the requirements, i.e. no more than 14 words, 
-no blacklisted characters etc.
-"""
-def analyze(sentences):
+	Parameters:
+		sentence (str): A sentence
+
+	Returns:
+		sentence (str): The same, or fixed sentence   
+	"""
+	for word in sentence.split(" "):
+		if word in config["COMMON_MISTAKES"]:
+			sentence = sentence.replace(word, config["COMMON_MISTAKES"][word])
+		else:
+			pass
+
+	return sentence
+
+def analyze(sentences) -> list:
+	""" Analyzes given sentences and returns only the valid ones.
+
+	Parameters:
+		sentences (list[str]): List of sentences
+
+	Returns:
+		valid_sentences (list[str]): List of valid sentences   
+	"""
 	valid_sentences = []
 
 	for sentence in sentences:
@@ -43,7 +76,7 @@ def analyze(sentences):
 			continue
 
 		# More than 14 words?
-		if len(sentence.split(' ')) > config.MAX_WORDS:
+		if len(sentence.split(' ')) > config["MAX_WORDS"]:
 			continue
 
 		# If all of these passed, finally check for common mistakes
@@ -53,29 +86,47 @@ def analyze(sentences):
 	
 	return valid_sentences
 
-"""
-Takes a list of all valid sentences and writes
-it into a file with a new line appended after each sentence
-"""
-def write_to_file(valid_sentences):
-	with open(config.OUTPUT_FILE, 'w') as w:
+
+def write_to_file(valid_sentences) -> None:
+	""" Writes all valid sentences into a file.
+
+	Parameters:
+		valid_sentences (list[str]): List of all valid sentences
+
+	Returns:
+		None   
+	"""
+	with open(config["OUTPUT_FILE"], 'w') as w:
 		for sentence in valid_sentences:
 			w.write(f"{sentence}\n")
+	
+	return None
 
-def main():
+def main() -> None:
+	""" Program main. Loops through the received lines of text from
+	stdin, and calls the needed functions in order to extract 
+	valid sentences. Outputs information about the sentences and
+	where they extracted.
+
+	Parameters:
+		None
+
+	Returns:
+		None 
+	"""
 	all_time_valid_sentences = 0
 
 	received_lines = fileinput.input()
 	
 	for index, line in enumerate(received_lines):
-		sentences = re.split(config.SPLIT_INTO_SENTENCES, line)
+		sentences = re.split(config["SPLIT_INTO_SENTENCES"], line)
 		valid_sentences = analyze(sentences)
 
 		all_time_valid_sentences += len(valid_sentences)
 	
 		write_to_file(valid_sentences)
 
-	print(f"Found {all_time_valid_sentences - 1} valid sentences. All of them were extracted to {config.OUTPUT_FILE}")
+	print(f"Found {all_time_valid_sentences - 1} valid sentences. All of them were extracted to {config['OUTPUT_FILE']}")
 	return None
 
 main()
