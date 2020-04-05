@@ -79,6 +79,10 @@ def analyze(sentences) -> list:
 		if len(sentence.split(' ')) > config["MAX_WORDS"]:
 			continue
 
+		# Empty field?
+		if not sentence:
+			continue
+
 		# If all of these passed, finally check for common mistakes
 		sentence = fix_common_mistakes(sentence)
 
@@ -96,9 +100,9 @@ def write_to_file(valid_sentences) -> None:
 	Returns:
 		None   
 	"""
-	with open(config["OUTPUT_FILE"], 'w') as w:
+	with open(config["OUTPUT_FILE"], 'a') as f:
 		for sentence in valid_sentences:
-			w.write(f"{sentence}\n")
+			f.write(f"{sentence}\n")
 	
 	return None
 
@@ -123,10 +127,10 @@ def main() -> None:
 		valid_sentences = analyze(sentences)
 
 		all_time_valid_sentences += len(valid_sentences)
-	
+
 		write_to_file(valid_sentences)
 
-	print(f"Found {all_time_valid_sentences - 1} valid sentences. All of them were extracted to {config['OUTPUT_FILE']}")
+	print(f"Found {all_time_valid_sentences} valid sentences. All of them were extracted to {config['OUTPUT_FILE']}")
 	return None
 
 main()
