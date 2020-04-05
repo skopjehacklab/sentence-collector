@@ -1,5 +1,6 @@
 import fileinput
 import re
+import sys
 
 blacklistedCharacthers = ['*', '//', '#', '{', '}', '::', 'json', '[', ']', '(', ')', '=', 'X', 'I', 'V', 'L', 'C', 'D', 'M']
 outputFile = 'sentences.txt'
@@ -23,6 +24,7 @@ for line in fileinput.input():
 
 if text is "":
 	print("\033[91m [+] No text has been found. Exitting... \033[0m")
+	sys.exit(1)
 
 
 print("\033[94m [+] Splitting file into sentences... \033[0m")
