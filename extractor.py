@@ -6,7 +6,7 @@ import re
 config = {
 	"MAX_WORDS": 14,
 	"OUTPUT_FILE": f"{int(time() * 1000)}-output.txt",
-	"WHITELISTED_CHARACTERS": list("абвгдѓежзѕијклљмнњопрстќуфхцчџшАБВГДЃЕЖЗЅИЈКЛЉМНЊОПРСТЌУФХЦЧЏШ.?!(),: "),
+	"WHITELISTED_CHARACTERS": list("абвгдѓеѐжзѕиѝјклљмнњопрстќуфхцчџшАБВГДЃЕЀЖЗЅИЍЈКЛЉМНЊОПРСТЌУФХЦЧЏШ.?!(),: "),
 	"SPLIT_INTO_SENTENCES": "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s",
 	"COMMON_MISTAKES": {
 		"Сеуште": "Сѐ уште",
