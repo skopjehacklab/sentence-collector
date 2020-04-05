@@ -6,7 +6,7 @@ import re
 config = {
 	"MAX_WORDS": 14,
 	"OUTPUT_FILE": f"{int(time() * 1000)}-output.txt",
-	"WHITELISTED_CHARACTERS": list("абвгдѓеѐжзѕиѝјклљмнњопрстќуфхцчџшАБВГДЃЕЀЖЗЅИЍЈКЛЉМНЊОПРСТЌУФХЦЧЏШ.?!(),: "),
+	"WHITELISTED_CHARACTERS": list("абвгдѓеѐжзѕиѝјклљмнњопрстќуфхцчџшАБВГДЃЕЀЖЗЅИЍЈКЛЉМНЊОПРСТЌУФХЦЧЏШ.?!(),—-: "),
 	"SPLIT_INTO_SENTENCES": "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s",
 	"COMMON_MISTAKES": {
 		"Сеуште": "Сѐ уште",
@@ -33,6 +33,7 @@ def check_character(sentence) -> bool:
 	"""
 	for character in sentence:
 		if character not in config["WHITELISTED_CHARACTERS"]:
+			print(f"Yes. {character}")
 			return True
 	return False
 
@@ -67,6 +68,10 @@ def analyze(sentences) -> list:
 	valid_sentences = []
 
 	for sentence in sentences:
+		# Empty field?
+		if not sentence:
+			continue
+
 		# Any invalid characters?
 		if check_character(sentence):
 			continue
@@ -77,10 +82,6 @@ def analyze(sentences) -> list:
 
 		# More than 14 words?
 		if len(sentence.split(' ')) > config["MAX_WORDS"]:
-			continue
-
-		# Empty field?
-		if not sentence:
 			continue
 
 		# If all of these passed, finally check for common mistakes
