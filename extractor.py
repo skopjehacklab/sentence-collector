@@ -83,7 +83,7 @@ def analyze(sentences) -> list:
 
 		# More than 14 words and less than 2 words?
 		words_length = len(sentence.split(' '))
-		if words_length > config["MAX_WORDS"] and words_length < config["MIN_WORDS"]:
+		if words_length > config["MAX_WORDS"] or words_length < config["MIN_WORDS"]:
 			continue
 
 		# If all of these passed, finally check for common mistakes
