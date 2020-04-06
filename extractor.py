@@ -5,6 +5,7 @@ import re
 # Packed config of variables used in the program
 config = {
 	"MAX_WORDS": 14,
+	"MIN_WORDS": 2,
 	"OUTPUT_FILE": f"{int(time() * 1000)}-output.txt",
 	"WHITELISTED_CHARACTERS": list("абвгдѓеѐжзѕиѝјклљмнњопрстќуфхцчџшАБВГДЃЕЀЖЗЅИЍЈКЛЉМНЊОПРСТЌУФХЦЧЏШ;„“.?!(),—-: "),
 	"SPLIT_INTO_SENTENCES": "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s",
@@ -80,8 +81,9 @@ def analyze(sentences) -> list:
 		if bool(re.search('[\d-]', sentence)):
 			continue
 
-		# More than 14 words?
-		if len(sentence.split(' ')) > config["MAX_WORDS"]:
+		# More than 14 words and less than 2 words?
+		words_length = len(sentence.split(' '))
+		if words_length > config["MAX_WORDS"] and words_length < config["MIN_WORDS"]:
 			continue
 
 		# If all of these passed, finally check for common mistakes
