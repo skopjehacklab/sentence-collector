@@ -48,12 +48,11 @@ def fix_common_mistakes(sentence) -> str:
 		sentence (str): The same, or fixed sentence   
 	"""
 	for index, word in enumerate(sentence.split(" ")):
-	        if index is 0 and word.islower():
-		       sentence = sentence.replace(word, word.capitalize())
+		if index == 0 and word.islower():
+			sentence = sentence.replace(word, word.capitalize())
+		
 		if word in config["COMMON_MISTAKES"]:
 			sentence = sentence.replace(word, config["COMMON_MISTAKES"][word])
-		else:
-			pass
 
 	return sentence
 
