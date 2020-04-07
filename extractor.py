@@ -93,10 +93,10 @@ def analyze(sentences) -> list:
 	return valid_sentences
 
 def to_stdout(valid_sentences) -> None:
-	""" Takes a list of sentences and prints them to stdout
+	""" Takes a list of valid sentences and outputs them to stdout
 
 	Parameters:
-		sentences (list[str]): List of sentences
+		valid_sentences (list[str]): List of sentences
 
 	Returns:
 		None  
