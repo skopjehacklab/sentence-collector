@@ -6,7 +6,6 @@ import re
 config = {
 	"MAX_WORDS": 14,
 	"MIN_WORDS": 2,
-	"OUTPUT_FILE": f"{int(time() * 1000)}-output.txt",
 	"WHITELISTED_CHARACTERS": list("абвгдѓеѐжзѕиѝјклљмнњопрстќуфхцчџшАБВГДЃЕЀЖЗЅИЍЈКЛЉМНЊОПРСТЌУФХЦЧЏШ;„“.?!(),—-: "),
 	"SPLIT_INTO_SENTENCES": "(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s",
 	"COMMON_MISTAKES": {
@@ -93,21 +92,17 @@ def analyze(sentences) -> list:
 	
 	return valid_sentences
 
-
-def write_to_file(valid_sentences) -> None:
-	""" Writes all valid sentences into a file.
+def to_stdout(valid_sentences) -> None:
+	""" Takes a list of valid sentences and outputs them to stdout
 
 	Parameters:
-		valid_sentences (list[str]): List of all valid sentences
+		valid_sentences (list[str]): List of sentences
 
 	Returns:
-		None   
+		None  
 	"""
-	with open(config["OUTPUT_FILE"], 'a') as f:
-		for sentence in valid_sentences:
-			f.write(f"{sentence}\n")
-	
-	return None
+	for sentence in valid_sentences:
+		print(f"{sentence}")
 
 def main() -> None:
 	""" Program main. Loops through the received lines of text from
@@ -121,19 +116,14 @@ def main() -> None:
 	Returns:
 		None 
 	"""
-	all_time_valid_sentences = 0
-
 	received_lines = fileinput.input()
 	
 	for index, line in enumerate(received_lines):
 		sentences = re.split(config["SPLIT_INTO_SENTENCES"], line)
 		valid_sentences = analyze(sentences)
 
-		all_time_valid_sentences += len(valid_sentences)
+		to_stdout(valid_sentences)
 
-		write_to_file(valid_sentences)
-
-	print(f"Found {all_time_valid_sentences} valid sentences. All of them were extracted to {config['OUTPUT_FILE']}")
 	return None
 
 main()

@@ -53,7 +53,13 @@ wget \
 Изврши ја следнава команда:
 
 ```
-$ cat Hamlet.txt | python extractor.py
+$ cat Hamlet.txt | python extractor.py > output.txt
+```
+
+или директно во `clipboard`
+
+```
+$ cat Hamlet.txt | python extractor.py | xclip -selection clipboard
 ```
 
 Програмата ќе ви каже колку реченици се успешно извадени и во кој фајл се зачувани. Фајлот ќе се креира во истата датотека кај што е програмата.
