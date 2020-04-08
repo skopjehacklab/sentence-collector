@@ -6,7 +6,7 @@ from extractor import check_character, fix_common_mistakes, analyze
 
 def test_check_character():
 	"""
-	Test if given a sentence returns True if it finds an invalid characther
+	Test if given a sentence returns True if it finds an invalid characther and False if it finds valid
 
 	Parameters: None
 
