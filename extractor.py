@@ -75,10 +75,6 @@ def analyze(sentences) -> list:
 		# Any invalid characters?
 		if check_character(sentence):
 			continue
-		
-		# Any digits?
-		if bool(re.search('[\d-]', sentence)):
-			continue
 
 		# More than 14 words and less than 2 words?
 		words_length = len(sentence.split(' '))
