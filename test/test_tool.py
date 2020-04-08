@@ -20,7 +20,7 @@ def test_check_character():
 
 def test_fix_common_mistakes():
 	"""
-	Test if given a sentence returns True if it finds an invalid characther
+	Test if given a sentence it'll return a correct form of it.
 
 	Parameters: None
 
@@ -34,8 +34,8 @@ def test_fix_common_mistakes():
 
 def test_analyze():
 	"""
-	Test if given a sentence returns True if it finds an invalid characther
-
+	Test if given a list of sentences it'll return the valid ones.
+	
 	Parameters: None
 
 	Returns: None
