@@ -158,4 +158,6 @@ def main() -> None:
 
 	return None
 
-main()
+if __name__ == '__main__':
+    main()
+
