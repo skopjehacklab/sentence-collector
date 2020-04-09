@@ -2,7 +2,7 @@ from extractor import check_character, fix_common_mistakes, analyze
 
 def test_check_character():
 	"""
-	Test if given a sentence returns True if it finds an invalid characther and False if it finds valid
+	Test if given a sentence returns True if it finds an invalid character and False if it finds valid
 
 	Parameters: None
 
@@ -11,7 +11,7 @@ def test_check_character():
 
 	assert check_character("Јас сакам да имам куче.") == False
 	assert check_character("I love to have a dog.") == True
-	assert check_character("I have 234234 points.") == True
+	assert check_character("Јас имам 234234 поена.") == True
 
 
 def test_fix_common_mistakes():
