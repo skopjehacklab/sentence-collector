@@ -129,7 +129,7 @@ def replace_abbreviations(line) -> str:
 	# Can be optimized
 	for abbreviation in dictionary["ABBREVIATIONS"]:
 		if abbreviation or abbreviation.capitalize() in line:
-			line = line.replace(abbreviation.capitalize(), dictionary["ABBREVIATIONS"][abbreviation])
+			line = line.replace(abbreviation.capitalize(), dictionary["ABBREVIATIONS"][abbreviation].capitalize())
 			line = line.replace(abbreviation, dictionary["ABBREVIATIONS"][abbreviation])
 
 	return line
