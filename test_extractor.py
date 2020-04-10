@@ -13,9 +13,9 @@ def test_fix_common_mistakes():
 	assert fix_common_mistakes("јас сакам да имам куче.") == "Јас сакам да имам куче."
 	assert fix_common_mistakes("Јас незнам да пишувам.") == "Јас не знам да пишувам."
 	assert fix_common_mistakes("Ова е компир.") == "Ова е компир."
-	assert fix_common_mistakes("Сеуште незнам како се вика.") == "Сѐ уште не знам како се вика."
+	assert fix_common_mistakes("Сеуште незнам.") == "Сѐ уште не знам."
 	assert fix_common_mistakes("Одприлика уште малце.") == "Отприлика уште малце."
-
+	assert fix_common_mistakes("Јас тоа незнам.") == "Јас тоа не знам."
 
 # Test if given a list of sentences it'll return the valid ones.
 def test_analyze():

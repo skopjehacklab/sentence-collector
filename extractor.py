@@ -56,6 +56,9 @@ def fix_common_mistakes(sentence) -> str:
 		sentence (str): The same, or fixed sentence   
 	"""
 	for index, word in enumerate(sentence.split(" ")):
+		if "." in word:
+			word = word.strip(".")
+
 		word_is_uppercase = word[0].isupper()
 
 		if index == 0 and word.islower():
